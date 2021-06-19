@@ -96,7 +96,12 @@ function main() {
     async function collectData() {
         let html = document.documentElement.outerHTML;
 
-        let links = ([...document.querySelectorAll('.simplebar-content > ol > li a')] as HTMLAnchorElement[]).map(a => a.href);
+        let firstLink = document.querySelector('link[rel=canonical]');
+        if (!firstLink) {
+            throw new Error("Cannot the first link");
+        }
+
+        let links = ([firstLink, ...document.querySelectorAll('.simplebar-content > ol > li a')] as HTMLAnchorElement[]).map(a => a.href);
         if (!links.length) {
             throw new Error("Cannot find play item links");
         }
