@@ -14,12 +14,14 @@ function main() {
             }
             #tm-root button {
                 border: 1px solid #272727;
-                background-color: #e4f7ff;
+
+                background-color: #e6e8ff;
+                border-radius: 2px;
+                padding: 0 .4rem;
             }
             #tm-btns {
                 display: none;
                 margin-left: .2rem;
-                background-color: #e4f7ff;
             }
             #tm-code {
                 /*max-width: 1px; opacity: 0;*/
@@ -29,7 +31,7 @@ function main() {
 
                 padding: 0 .1rem;
                 line-height: 1rem;
-                background-color: #e4f7ff;
+                background-color: #f2fff9;
             }
             #tm-info {
                 position: absolute;
@@ -101,7 +103,7 @@ function main() {
 
         let final = links.reduce((acc: string, val: string) => {
             return `${acc}\n${val}`;
-        }, '');
+        }, '').trim();
 
         console.log('items', final);
         
