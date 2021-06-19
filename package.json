@@ -1,0 +1,10 @@
+{
+  "name": "egghead.io-ctx",
+  "description": "Content script to be embedded for deletion on egghead.io",
+  "version": "0.1.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc src/content-script.ts --outFile dist/deploy.js --target esnext -w",
+    "get": "tsc src/content-script.ts --outFile dist/deploy.js --target esnext --removeComments"
+  }
+}
