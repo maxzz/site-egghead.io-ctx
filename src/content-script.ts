@@ -1,6 +1,6 @@
 function main() {
     let container = document.createElement('div');
-    container.style.position = 'absolut';
+    container.style.position = 'absolute';
     container.style.left = '0';
     container.style.top = '0';
     container.style.zIndex = '1000';
@@ -14,16 +14,22 @@ function main() {
             }
             #tm-root button {
                 border: 1px solid #272727;
+                background-color: #e4f7ff;
             }
             #tm-btns {
                 display: none;
                 margin-left: .2rem;
+                background-color: #e4f7ff;
             }
             #tm-code {
                 /*max-width: 1px; opacity: 0;*/
                 display: none;
                 font-size: .5rem;
                 margin-left: .2rem;
+
+                padding: 0 .1rem;
+                line-height: 1rem;
+                background-color: #e4f7ff;
             }
             #tm-info {
                 position: absolute;
@@ -54,7 +60,8 @@ function main() {
                     <button>copy</button>
                     <button style="margin-left: -1px">x</button>
                 </div>
-                <input id="tm-code" spellcheck="false">
+                <textarea id="tm-code" rows="1" cols="100" spellcheck="false"></textarea>
+                <!-- <input id="tm-code-2" spellcheck="false"> -->
             </div>
             <div id="tm-info"></div>
         </div>
@@ -87,30 +94,18 @@ function main() {
     async function collectData() {
         let html = document.documentElement.outerHTML;
 
-        function getPlayerItemsUrl(html: string): string {
-            const reAxiosItemsQuery = /\/course\/\d{3,10}?\/lessons/g;
-            let m: RegExpExecArray | null = reAxiosItemsQuery.exec(html);
-            return m ? `https://coursehunter.net${m[0]}` : '';
+        let links = ([...document.querySelectorAll('.simplebar-content > ol > li a')] as HTMLAnchorElement[]).map(a => a.href);
+        if (!links.length) {
+            throw new Error("Cannot find play item links");
         }
 
-        let itemsUrl = getPlayerItemsUrl(html); //https://coursehunter.net/course/208/lessons"
-        if (!itemsUrl) {
-            throw new Error("Cannot find play items link");
-        }
+        let final = links.reduce((acc: string, val: string) => {
+            return `${acc}\n${val}`;
+        }, '');
+
+        console.log('items', final);
         
-        let res = await fetch(itemsUrl);
-        let items = res.ok && await res.text();
-        if (!res.ok) {
-            throw new Error("Cannot fetch play items");
-        }
-
-        return JSON.stringify({
-            a: 'tm',
-            docurl: document.location.href,
-            itemsurl: itemsUrl,
-            doc: html,
-            items: items,
-        });
+        return final;
     }
 
     btn?.addEventListener('click', async (e) => {
