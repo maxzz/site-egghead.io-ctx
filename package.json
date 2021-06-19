@@ -1,7 +1,7 @@
 {
-  "name": "egghead.io-ctx",
-  "description": "Content script to be embedded for deletion on egghead.io",
-  "version": "0.1.1",
+  "name": "site-egghead.io-ctx",
+  "description": "Content script to embed in egghead.io with AddJs extension",
+  "version": "0.1.2",
   "license": "MIT",
   "scripts": {
     "dev": "tsc src/content-script.ts --outFile dist/deploy.js --target esnext -w",
